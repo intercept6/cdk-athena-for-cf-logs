@@ -1,14 +1,4 @@
-# Welcome to your CDK TypeScript project
+# CDK Athena for CloudFront logs
 
-This is a blank project for TypeScript development with CDK.
-
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
-
-## Useful commands
-
-* `npm run build`   compile typescript to js
-* `npm run watch`   watch for changes and compile
-* `npm run test`    perform the jest unit tests
-* `cdk deploy`      deploy this stack to your default AWS account/region
-* `cdk diff`        compare deployed stack with current state
-* `cdk synth`       emits the synthesized CloudFormation template
+AWS CloudFrontのアクセスログをAthenaでクエリーする環境を作るAWS CDKプロジェクトです。
+パーティション射影（Partition Projection）の機能を使い、クエリー範囲を限定することが可能な構成です。これによってコストパフォーマンス良くクエリーを行えます。

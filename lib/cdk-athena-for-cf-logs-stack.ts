@@ -1,16 +1,23 @@
-import { Stack, StackProps } from 'aws-cdk-lib';
-import { Construct } from 'constructs';
-// import * as sqs from 'aws-cdk-lib/aws-sqs';
+import {RemovalPolicy, Stack, StackProps} from 'aws-cdk-lib';
+import {Construct} from 'constructs';
+import {Bucket} from 'aws-cdk-lib/aws-s3';
+import {AthenaTableForCloudFront} from './athena-table-for-cloudfront';
 
 export class CdkAthenaForCfLogsStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    // The code that defines your stack goes here
+    const srcBucket = new Bucket(this, 'SrcBucket', {
+      removalPolicy: RemovalPolicy.DESTROY,
+    });
 
-    // example resource
-    // const queue = new sqs.Queue(this, 'CdkAthenaForCfLogsQueue', {
-    //   visibilityTimeout: cdk.Duration.seconds(300)
-    // });
+    const destBucket = new Bucket(this, 'DestBucket', {
+      removalPolicy: RemovalPolicy.DESTROY,
+    });
+
+    new AthenaTableForCloudFront(this, 'AthenaCloudFront', {
+      srcBucket,
+      destBucket,
+    });
   }
 }
